@@ -1,0 +1,36 @@
+{
+    "name": "rs-world/instantiator",
+    "type": "library",
+    "description": "A dependency handler for php to provide loosely coupled design",
+    "keywords": [
+        "instantiate",
+        "library",
+        "constructor",
+        "dependency-handler"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Md. Reyadus Salahin",
+            "email": "reyadussalahin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "RS\\DependencyHandler\\": "src/RS/DependencyHandler"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

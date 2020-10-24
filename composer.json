@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RS\\DependencyHandler\\": "src/RS/DependencyHandler"
+            "RS\\": "src/RS"
         }
     },
     "autoload-dev": {

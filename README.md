@@ -84,9 +84,48 @@ var_dump($db instanceof \Path\To\Database); // prints false
 var_dump($db instanceof \Path\To\DatabaseFake); // prints true
 ```
 
-You can easily switch between modes and get your desired object. `Instantiator` gives great felxibility to switch objects when you're in production or testing.
+### Resolving dependencies using Instantiator
+You can easily handle dependency using Instantiator. Let there be a Service class which depends on Database. Then,
+
+```php
+class ServiceInstantiator extends Instantator
+{
+    protected function register()
+    {
+        // ...
+        // ...
+        $dbi = new \Path\To\DatabaseInstantiator(
+            $this->getMode(),
+            $this->getFallback()
+        );
+        $db = $dbi->getInstance($a, $b);
+
+        $this->instance([
+            "default" => function($x) use($db) {
+                return \Path\To\Service($db, $x);
+            }
+        ]);
+    }
+
+    public function get($x): ServiceInterface
+    {
+        return $this->getInstance($x);
+    }
+}
+```
+
+You can use it as follows:
+
+```php
+// ...
+$si = new ServiceInstantiator();
+$service = $si->get($x);
+// ...
+```
+And you don't have to worry about database instantiating, and also you don't have to worry about which databse class to use when it is testing time, cause "DatabaseFake" will be instantiating when mode is set to "test". It makes your task that simple!
   
-Instantiator brings much more functionality to table. The documentation of Instantiator is under process.
+Instantiator brings much more functionality to table, whether you're in production or testing or developing applicatons. The documentation of Instantiator is under process, and any type of contribution is very much welcome.
+
 
 ## LICENSE
 To learn about the project license, visit [here](https://github.com/rs-world/instantiator/blob/master/LICENSE).

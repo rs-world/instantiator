@@ -132,4 +132,4 @@ To learn about the project license, visit [here](https://github.com/rs-world/ins
 
 
 ## Contributing
-The project is ongoing and it has a lot of potential to grow. So, if you've any ideas or improvements, send a pull request. I'll have a look, and also your name'll be added to supporters list if you contribute.
+The project is ongoing and it has a lot of potential to grow. So, if you've any ideas or improvements, send a pull request. I'll have a look as soon as possible and provide feedback.

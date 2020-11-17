@@ -5,10 +5,10 @@ namespace Tests\RS\Instantiator;
 
 use PHPUnit\Framework\TestCase;
 use RS\Instantiator\InstantiatorInterface;
-use RS\Instantiator\Instantiator;
+use RS\Instantiator\AbstractInstantiator;
 
 
-class CalculatorInstantiator extends Instantiator
+class CalculatorInstantiator extends AbstractInstantiator
 {
     public function __construct($mode=null, $fallback=null)
     {
@@ -38,7 +38,7 @@ class CalculatorInstantiator extends Instantiator
 }
 
 
-class SingletonCalculatorInstantiator extends Instantiator
+class SingletonCalculatorInstantiator extends AbstractInstantiator
 {
     protected function register()
     {
@@ -62,34 +62,35 @@ class SingletonCalculatorInstantiator extends Instantiator
     }
 }
 
-class InstantiatorTest extends TestCase
+class AbstractInstantiatorTest extends TestCase
 {
     public function testInterface()
     {
         $calc = new CalculatorInstantiator();
-        $this->assertTrue($calc instanceof Instantiator);
+        $this->assertTrue($calc instanceof AbstractInstantiator);
     }
 
     public function testSetGlobalMode()
     {
-        Instantiator::reset();
+        AbstractInstantiator::reset();
 
-        Instantiator::setGlobalMode("xyz");
-        $this->assertEquals("xyz", Instantiator::getGlobalMode());
+        AbstractInstantiator::setGlobalMode("xyz");
+        $this->assertEquals("xyz", AbstractInstantiator::getGlobalMode());
     }
 
     public function testSetGlobalFallback()
     {
-        Instantiator::reset();
+        AbstractInstantiator::reset();
 
-        Instantiator::setGlobalFallback(false);
-        $this->assertEquals(false, Instantiator::getGlobalFallback());
+        AbstractInstantiator::setGlobalFallback(false);
+        $this->assertEquals(false, AbstractInstantiator::getGlobalFallback());
     }
 
 
     public function testSetMode()
     {
-        Instantiator::reset();
+        AbstractInstantiator::reset();
+
         // default mode performs add
         $calc = new CalculatorInstantiator();
         $this->assertEquals(6, $calc->get(2, 4));
@@ -104,7 +105,7 @@ class InstantiatorTest extends TestCase
 
     public function testGetMode()
     {
-        Instantiator::reset();
+        AbstractInstantiator::reset();
         // default mode performs add
         $calc = new CalculatorInstantiator();
         $calc->setMode("xyz");
@@ -113,7 +114,7 @@ class InstantiatorTest extends TestCase
 
     public function testFunctionality()
     {
-        Instantiator::reset();
+        AbstractInstantiator::reset();
 
         $add = new CalculatorInstantiator();
         $this->assertEquals(8, $add->get(3, 5));
@@ -161,7 +162,7 @@ class InstantiatorTest extends TestCase
 
         // now, check change in global mode
         // change mode to "mul"
-        Instantiator::setGlobalMode("mul");
+        AbstractInstantiator::setGlobalMode("mul");
 
         // notice, no mode provided
         // it would be set to mul mode

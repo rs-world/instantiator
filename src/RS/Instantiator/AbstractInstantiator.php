@@ -3,7 +3,7 @@
 namespace RS\Instantiator;
 
 
-abstract class Instantiator implements InstantiatorInterface
+abstract class AbstractInstantiator implements InstantiatorInterface
 {
     // global i.e. static properties and methods of instantiator
 
@@ -40,7 +40,7 @@ abstract class Instantiator implements InstantiatorInterface
 
     private static function checkGlobalMethodAccessPermission(string $methodName): void
     {
-        if(get_called_class() !== Instantiator::class) {
+        if(get_called_class() !== self::class) {
             throw new \Exception(
                 "Error: \"" . get_called_class()
                 . "\" does not have access to \""
